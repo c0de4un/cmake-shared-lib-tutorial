@@ -62,6 +62,8 @@ set ( MY_EXE_SOURCES
 	#
 	"main.cpp" )
 
+message ( STATUS "Lib = ${mylib}" )
+
 # =================================================================================
 # BUILD
 # =================================================================================
@@ -74,4 +76,7 @@ set_target_properties ( myexe PROPERTIES
 	OUTPUT_NAME "shared_library_example"
 	RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}" )
 
-# Link
+# Include MyLib Public-Headers
+include_directories( "../lib/public" )
+
+target_link_libraries ( myexe mylib )

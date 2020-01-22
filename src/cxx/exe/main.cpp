@@ -78,6 +78,17 @@ namespace c0de4un
 #endif
 // WINDOWS
 
+void loadLib()
+{
+	// WINDOWS
+#if defined( WIN32 ) || defined( WIN64 ) || defined( WINDOWS )
+		std::cout << "Library loaded." << std::endl;
+		const int sumResult = Sum(2, 2);
+		std::cout << "result = " << std::to_string(sumResult) << std::endl;
+#endif
+	// WINDOWS
+}
+
 int main()
 {
 	// WINDOWS
@@ -91,6 +102,9 @@ int main()
 
 	// Print
 	std::cout << u8"Привет мир !" << std::endl;
+
+	// Use SHARED Library.
+	loadLib();
 
 	// Wait input.
 	std::cin.get();

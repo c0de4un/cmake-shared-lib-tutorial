@@ -52,6 +52,9 @@ set ( MY_LIB_HEADERS
 	#
 	"public/mylib.h" )
 
+# Headers used to access library.
+set ( PUBLIC_HEADERS "public/mylib.h" )
+
 # =================================================================================
 # SOURCES
 # =================================================================================
@@ -64,9 +67,26 @@ set ( MY_LIB_SOURCES
 # BUILD
 # =================================================================================
 
+# Export all Symbols by default (on Windows creates '.lib'+ '.dll').
+set ( CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON )
+
 # Create SHARED Library Object
-add_library ( mylib SHARED ${MY_LIB_HEADERS} ${MY_LIB_SOURCES} )
+add_library ( mylib SHARED ${MY_LIB_SOURCES} )
 
 # Configure SHARED Library Object
 set_target_properties ( mylib PROPERTIES
+	PUBLIC_HEADER ${PUBLIC_HEADERS}
+	RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR}
 	VERSION ${PROJECT_VERSION} )
+
+# =================================================================================
+# INSTALL
+# =================================================================================
+
+# Import GNU Install Rules
+include( GNUInstallDirs )
+
+# Files to Install
+install( TARGETS mylib
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
